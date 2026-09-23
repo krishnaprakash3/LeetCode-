@@ -1,0 +1,36 @@
+class Solution {
+    public int minOperations(int[] nums, int x) {
+
+        int total = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            total += nums[i];
+        }
+
+        int target = total - x;
+
+        int sum = 0;
+        int j = 0;
+        int maxCount = -1;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            sum += nums[i];
+
+            while (sum > target && j <= i) {
+                sum -= nums[j];
+                j++;
+            }
+
+            if (sum == target) {
+                maxCount = Math.max(maxCount, i - j + 1);
+            }
+        }
+
+        if (maxCount == -1) {
+            return -1;
+        }
+
+        return nums.length - maxCount;
+    }
+}
